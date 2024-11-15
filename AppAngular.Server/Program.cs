@@ -1,4 +1,13 @@
+using AppAngular.Server.Context;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+//configurar la base de datos. 
+
+builder.Services.AddDbContext<SirmDbContext>(
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStrings")));
+
 
 // Add services to the container.
 
