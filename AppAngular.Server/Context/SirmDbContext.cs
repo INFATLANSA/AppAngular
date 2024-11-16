@@ -7,7 +7,7 @@ namespace AppAngular.Server.Context
     {
         public SirmDbContext(DbContextOptions<SirmDbContext> options) : base(options) { }
 
-        DbSet<Parametro> Parametro { get; set; }    
+        public DbSet<Parametro> Parametro { get; set; }    
 
     }
 }
