@@ -28,9 +28,4 @@
     </ProjectReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Servicio\" />
-    <Folder Include="ServicioImp\" />
-  </ItemGroup>
-
 </Project>
