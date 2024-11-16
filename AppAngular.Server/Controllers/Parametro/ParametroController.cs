@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AppAngular.Server.Servicio;
+using AppAngular.Server.Utils;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,6 +13,7 @@ namespace AppAngular.Server.Controllers.Parametro
         //Inyectar el Servicio 
         private readonly IServicioParametro _servicioParametro;
 
+        GeneralResponse generalResponse = new GeneralResponse();
         public ParametroController(IServicioParametro servicioParametro)
         {
             _servicioParametro = servicioParametro;
@@ -19,9 +21,16 @@ namespace AppAngular.Server.Controllers.Parametro
 
         // GET: api/<ParametroController>
         [HttpGet]
-        public IEnumerable<Entities.Parametro> Get()
+        public IActionResult Get()
         {
-            return _servicioParametro.listaParametros();
+            generalResponse = _servicioParametro.listaParametros();
+            if (generalResponse.Status.Equals(200))
+            {
+                return Ok(generalResponse);
+            }
+            else {
+                return BadRequest(generalResponse);
+            }
         }
 
         // GET api/<ParametroController>/5

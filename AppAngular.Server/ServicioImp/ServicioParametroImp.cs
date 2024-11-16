@@ -1,6 +1,7 @@
 ﻿using AppAngular.Server.Servicio;
 using AppAngular.Server.Repositorio;
 using AppAngular.Server.Entities;
+using AppAngular.Server.Utils;
 
 namespace AppAngular.Server.ServicioImp
 {
@@ -8,6 +9,9 @@ namespace AppAngular.Server.ServicioImp
     public class ServicioParametroImp : IServicioParametro
     {
         private readonly IRepositorioParametro _repositorioParametro;
+
+        private GeneralResponse generalResponse = new GeneralResponse();
+
         public ServicioParametroImp(IRepositorioParametro repositorioParametro) 
         {
             _repositorioParametro = repositorioParametro;
@@ -15,25 +19,25 @@ namespace AppAngular.Server.ServicioImp
 
         // Aquí vamos a crear nuevos metodos a que consumen de la interfaz 
         // La finalidad de personalizar y controlar excepciones. Ya que el usuario no debe conocer que tipo de error sucedió en el backend.
-        public List<Parametro> listaParametros()
+        public GeneralResponse listaParametros()
         {
             try
             {
                 List<Parametro> list = _repositorioParametro.GetParametroList();
                 if (list.Count() > 0)
                 {
-                    return list;
+                    generalResponse = GeneralResponseFn.responseGeneral( 200 , "Hay data" , list );
                 }
                 else 
                 {
-                    return null;
+                    generalResponse = GeneralResponseFn.responseGeneral( 400 , "No hay data" , list );
                 }
             }
-            catch (Exception ex) 
+            catch (Exception) 
             {
-                throw new Exception("Ocurrió un error en la consulta...");
-                
+                generalResponse = GeneralResponseFn.responseGeneral( 500, "Ocurrió un error Server" , null );                
             }
+            return generalResponse;    
         }
     }
 }
