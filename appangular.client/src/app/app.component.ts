@@ -1,12 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { WeatherForecast } from './interface/weatherforecast.interface';
+import { parametro } from './interface/parametro.interface';
 
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}
 
 @Component({
   selector: 'app-root',
@@ -16,10 +12,12 @@ interface WeatherForecast {
 export class AppComponent implements OnInit {
   public forecasts: WeatherForecast[] = [];
 
+  public parametro: parametro[]=[];
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.getForecasts();
+    this.getParametro();
   }
 
   getForecasts() {
@@ -31,6 +29,18 @@ export class AppComponent implements OnInit {
         console.error(error);
       }
     );
+  }
+
+  getParametro(){
+    this.http.get<parametro[]>('https://localhost:7290/api/Parametro').subscribe(
+      (result)=>{
+        this.parametro = result;
+        console.log(this.parametro);
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
   }
 
   title = 'appangular.client';
