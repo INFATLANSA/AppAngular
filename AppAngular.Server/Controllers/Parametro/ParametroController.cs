@@ -24,7 +24,7 @@ namespace AppAngular.Server.Controllers.Parametro
         public IActionResult Get()
         {
             generalResponse = _servicioParametro.listaParametros();
-            if (generalResponse.Status.Equals(200))
+            if (generalResponse.Status.Equals(Constantes.CODIGO_EXITO))
             {
                 return Ok(generalResponse);
             }

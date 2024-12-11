@@ -26,16 +26,16 @@ namespace AppAngular.Server.ServicioImp
                 List<Parametro> list = _repositorioParametro.GetParametroList();
                 if (list.Count() > 0)
                 {
-                    generalResponse = GeneralResponseFn.responseGeneral( 200 , "Hay data" , list );
+                    generalResponse = GeneralResponseFn.responseGeneral( Constantes.CODIGO_EXITO , Constantes.MENSAJE_OK , list );
                 }
                 else 
                 {
-                    generalResponse = GeneralResponseFn.responseGeneral( 400 , "No hay data" , list );
+                    generalResponse = GeneralResponseFn.responseGeneral( Constantes.CODIGO_NO_DATA , Constantes.MENSAJE_NO_DATA , list );
                 }
             }
             catch (Exception) 
             {
-                generalResponse = GeneralResponseFn.responseGeneral( 500, "Ocurrió un error Server" , null );                
+                generalResponse = GeneralResponseFn.responseGeneral( Constantes.CODIGO_ERROR, Constantes.getMensaje("") , null );                
             }
             return generalResponse;    
         }

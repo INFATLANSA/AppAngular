@@ -2,6 +2,7 @@
 using AppAngular.Server.Entities;
 using AppAngular.Server.Repositorio;
 using Microsoft.Data.SqlClient;
+using AppAngular.Server.Utils;
 
 namespace AppAngular.Server.RepositorioImp
 {
@@ -25,11 +26,11 @@ namespace AppAngular.Server.RepositorioImp
             }
             catch (SqlException ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception( Constantes.getMensaje(ex.Message));
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception(Constantes.getMensaje(ex.Message));
             }
         }
     }
