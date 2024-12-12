@@ -7,5 +7,7 @@ namespace AppAngular.Server.Repositorio
     {        
         List<Parametro> GetParametroList();
 
+        void guardarParametros(Parametro parametro);
+
     }
 }

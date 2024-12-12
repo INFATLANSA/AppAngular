@@ -39,5 +39,21 @@ namespace AppAngular.Server.ServicioImp
             }
             return generalResponse;    
         }
+
+        public GeneralResponse guardarParametro(Parametro parametro)
+        {
+            try
+            {
+                _repositorioParametro.guardarParametros(parametro );
+                generalResponse = GeneralResponseFn.responseGeneral(Constantes.CODIGO_EXITO,Constantes.MENSAJE_OK, null ); 
+
+            }
+            catch (Exception ex)
+            {
+                generalResponse = GeneralResponseFn.responseGeneral(Constantes.CODIGO_ERROR, Constantes.getMensaje(ex.Message), null);
+            }
+
+            return generalResponse;
+        }
     }
 }

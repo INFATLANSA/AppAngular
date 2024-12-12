@@ -23,13 +23,20 @@ namespace AppAngular.Server.Controllers.Parametro
         [HttpGet]
         public IActionResult Get()
         {
-            generalResponse = _servicioParametro.listaParametros();
-            if (generalResponse.Status.Equals(Constantes.CODIGO_EXITO))
+            try
             {
-                return Ok(generalResponse);
+                generalResponse = _servicioParametro.listaParametros();
+                if (generalResponse.Status.Equals(Constantes.CODIGO_EXITO))
+                {
+                    return Ok(generalResponse);
+                }
+                else {
+                    return BadRequest(generalResponse);
+                }
             }
-            else {
-                return BadRequest(generalResponse);
+            catch (Exception ex )
+            {
+                return StatusCode(Constantes.CODIGO_ERROR, ex.Message);
             }
         }
 
@@ -42,8 +49,24 @@ namespace AppAngular.Server.Controllers.Parametro
 
         // POST api/<ParametroController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody]  Entities.Parametro parametro)
         {
+            try
+            {
+                generalResponse = _servicioParametro.guardarParametro(parametro);
+                if (generalResponse.Status.Equals(Constantes.CODIGO_EXITO))
+                {
+                    return Ok(generalResponse);
+                }
+                else
+                {
+                    return BadRequest(generalResponse);
+                }
+            }
+            catch (Exception ex )
+            {
+                return StatusCode(Constantes.CODIGO_ERROR, ex.Message);
+            }
         }
 
         // PUT api/<ParametroController>/5

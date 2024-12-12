@@ -33,5 +33,24 @@ namespace AppAngular.Server.RepositorioImp
                 throw new Exception(Constantes.getMensaje(ex.Message));
             }
         }
+
+        // Consulta para guardar el parametro 
+        public void guardarParametros(Parametro parametro)
+        {
+            try
+            {
+                _context.Parametro.Add(parametro);
+                _context.SaveChanges();
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(Constantes.getMensaje(ex.Message));
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(Constantes.getMensaje(ex.Message));
+            }
+        }
     }
 }

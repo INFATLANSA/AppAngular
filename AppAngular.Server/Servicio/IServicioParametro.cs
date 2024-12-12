@@ -6,5 +6,7 @@ namespace AppAngular.Server.Servicio
     public interface IServicioParametro
     {
         public GeneralResponse listaParametros();
+
+        public GeneralResponse guardarParametro(Parametro parametro);
     }
 }
