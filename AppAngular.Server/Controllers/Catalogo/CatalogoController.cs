@@ -72,10 +72,26 @@ namespace AppAngular.Server.Controllers.Catalogo
             }
         }
 
-        // PUT api/<CatalogoController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<CatalogoController>/ESO
+        [HttpPut("{idCatalogo}")]
+        public IActionResult Put(string idCatalogo, [FromBody] Entities.Catalogo catalogo)
         {
+            try
+            {
+                generalResponse = _servicioCatalogo.actualizarCatalogo(idCatalogo, catalogo);
+                if (generalResponse.Status.Equals(Constantes.CODIGO_EXITO))
+                {
+                    return Ok(generalResponse);
+                }
+                else 
+                {
+                    return BadRequest(generalResponse); 
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Constantes.CODIGO_ERROR, ex.Message);
+            }
         }
 
         // DELETE api/<CatalogoController>/5
