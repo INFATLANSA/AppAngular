@@ -52,8 +52,24 @@ namespace AppAngular.Server.Controllers.Catalogo
 
         // POST api/<CatalogoController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] Entities.Catalogo catalogo) 
         {
+            try
+            {
+                generalResponse = _servicioCatalogo.guardarCatalogo(catalogo);
+                if (generalResponse.Status.Equals(Constantes.CODIGO_EXITO))
+                {
+                    return Ok(generalResponse);
+                }
+                else
+                {
+                    return BadRequest(generalResponse);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Constantes.CODIGO_ERROR, ex.Message);
+            }
         }
 
         // PUT api/<CatalogoController>/5
