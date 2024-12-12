@@ -1,4 +1,5 @@
-﻿using AppAngular.Server.Servicio;
+﻿using AppAngular.Server.Entities;
+using AppAngular.Server.Servicio;
 using AppAngular.Server.Utils;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,13 +42,6 @@ namespace AppAngular.Server.Controllers.Catalogo
             {
                 return StatusCode(Constantes.CODIGO_ERROR, ex.Message);
             }
-        }
-
-        // GET api/<CatalogoController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
         }
 
         // POST api/<CatalogoController>
@@ -94,10 +88,26 @@ namespace AppAngular.Server.Controllers.Catalogo
             }
         }
 
-        // DELETE api/<CatalogoController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE api/<CatalogoController>/ESO
+        [HttpDelete("{idCatalogo}")]
+        public IActionResult Delete(string idCatalogo)
         {
+            try
+            {
+                generalResponse = _servicioCatalogo.eliminarCatalogo(idCatalogo);
+                if (generalResponse.Status.Equals(Constantes.CODIGO_EXITO))
+                {
+                    return Ok(generalResponse);
+                }
+                else
+                {
+                    return BadRequest(generalResponse);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Constantes.CODIGO_ERROR, ex.Message);
+            }
         }
     }
 }
