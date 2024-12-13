@@ -28,7 +28,7 @@ namespace AppAngular.Server.ServicioImp
                 }
                 else
                 {
-                    generalResponse = GeneralResponseFn.responseGeneral(Constantes.CODIGO_NO_DATA, Constantes.MENSAJE_NO_DATA, list);
+                    generalResponse = GeneralResponseFn.responseGeneral(Constantes.CODIGO_NO_DATA, Constantes.MENSAJE_NO_DATA, null);
                 }
             }
             catch (Exception)
@@ -59,6 +59,10 @@ namespace AppAngular.Server.ServicioImp
         {
             try
             {
+                if (string.IsNullOrEmpty(idCatalogo))
+                {
+                    throw new Exception("El idCatalogo no es valido.");
+                }
                 _repositorioCatalogo.UpdateCatalogo(idCatalogo,catalogo);
                 generalResponse = GeneralResponseFn.responseGeneral(Constantes.CODIGO_EXITO, Constantes.MENSAJE_OK, null);
 
@@ -75,6 +79,10 @@ namespace AppAngular.Server.ServicioImp
         {
             try
             {
+                if (string.IsNullOrEmpty(idCatalogo))
+                {
+                    throw new Exception("El idCatalogo no es valido.");
+                }
                 _repositorioCatalogo.DeleteCatalogo(idCatalogo);
                 generalResponse = GeneralResponseFn.responseGeneral(Constantes.CODIGO_EXITO, Constantes.MENSAJE_OK, null);
 

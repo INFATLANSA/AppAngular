@@ -55,16 +55,13 @@ namespace AppAngular.Server.RepositorioImp
             try
             {
                 var updateCatalogo = _context.Catalogo.Find(idCatalogo);
-
-                if (updateCatalogo == null)
+                if (updateCatalogo != null)
                 {
-                    throw new Exception("El catálogo no existe en la base de datos.");
-                }
-                updateCatalogo.Descripcion = catalogo.Descripcion; 
-                updateCatalogo.Estado = catalogo.Estado; 
-
-                _context.Catalogo.Update(updateCatalogo);
-                _context.SaveChanges();
+                    updateCatalogo.Descripcion = catalogo.Descripcion; 
+                    updateCatalogo.Estado = catalogo.Estado;
+                    _context.Catalogo.Update(updateCatalogo);
+                    _context.SaveChanges();
+                }                
             }
             catch (SqlException ex)
             {
@@ -83,12 +80,11 @@ namespace AppAngular.Server.RepositorioImp
             {
                 var catalogoRemove = _context.Catalogo.Find(idCatalogo);
 
-                if (catalogoRemove == null)
+                if (catalogoRemove != null)
                 {
-                    throw new Exception("El catálogo no existe en la base de datos.");
-                }
-                _context.Catalogo.Remove(catalogoRemove);
-                _context.SaveChanges();
+                    _context.Catalogo.Remove(catalogoRemove);
+                    _context.SaveChanges();
+                }                
             }
             catch (SqlException ex)
             {
