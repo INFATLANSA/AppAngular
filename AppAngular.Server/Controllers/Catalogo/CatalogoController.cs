@@ -1,6 +1,7 @@
 ﻿using AppAngular.Server.Entities;
 using AppAngular.Server.Servicio;
 using AppAngular.Server.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,6 +10,7 @@ namespace AppAngular.Server.Controllers.Catalogo
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CatalogoController : ControllerBase
     {
         //Inyectar la interfaz de Servicio
@@ -29,6 +31,11 @@ namespace AppAngular.Server.Controllers.Catalogo
             try
             {
                 generalResponse = _servicioCatalogo.listaCatalogos();
+
+                //Ejemplo de log tomando los claims del jwt
+                var claims = User.Claims.Select(x => new {x.Type, x.Value}).ToList();
+                var usuario = claims[0].Value;
+
                 if (generalResponse.Status.Equals(Constantes.CODIGO_EXITO))
                 {
                     return Ok(generalResponse);
