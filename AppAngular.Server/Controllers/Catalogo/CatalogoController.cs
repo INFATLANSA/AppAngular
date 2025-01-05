@@ -31,6 +31,11 @@ namespace AppAngular.Server.Controllers.Catalogo
             try
             {
                 generalResponse = _servicioCatalogo.listaCatalogos();
+
+                //Ejemplo de log tomando los claims del jwt
+                var claims = User.Claims.Select(x => new {x.Type, x.Value}).ToList();
+                var usuario = claims[0].Value;
+
                 if (generalResponse.Status.Equals(Constantes.CODIGO_EXITO))
                 {
                     return Ok(generalResponse);
