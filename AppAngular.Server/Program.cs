@@ -55,6 +55,8 @@ builder.Services.AddScoped<IServicioParametro, ServicioParametroImp>();
 builder.Services.AddScoped<IRepositorioCatalogo, RepositorioCatalogoImp>();
 builder.Services.AddScoped<IServicioCatalogo,  ServicioCatalogoImp>();
 
+builder.Services.AddScoped<IServicioGenerarToken, ServicioGenerarTokenImp>();
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
