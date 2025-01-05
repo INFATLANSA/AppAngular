@@ -24,6 +24,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IRepositorioParametro, RepositorioParametroImp>();
 builder.Services.AddScoped<IServicioParametro, ServicioParametroImp>();
 
+builder.Services.AddScoped<IRepositorioCatalogo, RepositorioCatalogoImp>();
+builder.Services.AddScoped<IServicioCatalogo,  ServicioCatalogoImp>();
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
